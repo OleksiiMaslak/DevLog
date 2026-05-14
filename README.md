@@ -4,8 +4,33 @@ A local full-stack task tracker for engineering teams with four built-in AI agen
 
 ## Quick Start
 
+**1. Install dependencies**
+
 ```bash
 npm install
+```
+
+**2. Create the environment file**
+
+```bash
+cp .env.example .env
+```
+
+The default `.env` works out of the box — no API key required (mock mode is on by default):
+
+```env
+DATABASE_URL="file:./dev.db"
+OPENAI_API_KEY=""
+OPENAI_BASE_URL=""
+OPENAI_MODEL="gpt-4.1-mini"
+AI_PROVIDER="openai"
+AI_MOCK_MODE="true"
+CONTEXT7_API_KEY=""
+```
+
+**3. Start the dev server**
+
+```bash
 npm run dev
 ```
 
@@ -19,27 +44,19 @@ npm run db:seed
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Environment
+## Environment Variables
 
-Copy `.env.example` to `.env`:
+| Variable | Required | Description |
+|---|---|---|
+| `DATABASE_URL` | Yes | SQLite file path. Default: `file:./dev.db` |
+| `AI_MOCK_MODE` | No | `true` (default) — all agents run without an API key |
+| `OPENAI_API_KEY` | Only if `AI_MOCK_MODE=false` | OpenAI or GitHub Models PAT |
+| `OPENAI_BASE_URL` | No | Leave empty for OpenAI. Set to `https://models.inference.ai.azure.com` for GitHub Models |
+| `OPENAI_MODEL` | No | Default: `gpt-4.1-mini` |
+| `AI_PROVIDER` | No | Default: `openai` |
+| `CONTEXT7_API_KEY` | No | Used by the Copilot agent setup only |
 
-```bash
-cp .env.example .env
-```
-
-```env
-DATABASE_URL="file:./dev.db"
-OPENAI_API_KEY=""
-OPENAI_BASE_URL=""
-OPENAI_MODEL="gpt-4.1-mini"
-AI_PROVIDER="openai"
-AI_MOCK_MODE="true"
-CONTEXT7_API_KEY=""
-```
-
-`AI_MOCK_MODE=true` is the default. The product is fully usable without an API key — all four agents run and return structured results from a deterministic mock path that produces the same response shape as the real LLM calls. To enable real AI, set `OPENAI_API_KEY`, pick a model, and set `AI_MOCK_MODE=false`.
-
-`OPENAI_BASE_URL` is optional. Leave it empty for standard OpenAI. Set it to `https://models.inference.ai.azure.com` to use GitHub Models with a GitHub PAT as the key.
+`AI_MOCK_MODE=true` keeps the product fully functional without any secrets — all four agents run and return structured results from a deterministic mock path that produces the same response shape as the real LLM calls.
 
 ## Architecture
 
