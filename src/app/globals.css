@@ -1,0 +1,85 @@
+@import "tailwindcss" source(none);
+@source "./";
+@source "../components";
+
+@theme {
+  --color-ink: #17201c;
+  --color-muted: #68736f;
+  --color-panel: #fbfbf7;
+  --color-panel-soft: #f2f3eb;
+  --color-elevated: #ffffff;
+  --color-field: #ffffff;
+  --color-canvas: #e7ece5;
+  --color-line: #d8ded8;
+  --color-mint: #d9f99d;
+  --color-teal: #0f766e;
+  --color-coral: #f97316;
+  --color-berry: #be185d;
+  --shadow-soft: 0 18px 55px rgb(23 32 28 / 0.12);
+  --shadow-inset: inset 0 1px 0 rgb(255 255 255 / 0.55);
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: Aptos, "Segoe UI", Helvetica, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+html[data-theme="dark"] {
+  --color-ink: #edf4ef;
+  --color-muted: #a6b4ad;
+  --color-panel: #111a17;
+  --color-panel-soft: #18231f;
+  --color-elevated: #1d2924;
+  --color-field: #0d1512;
+  --color-canvas: #07100d;
+  --color-line: #2d3d36;
+  --color-mint: #7ac162;
+  --color-teal: #27b98f;
+  --color-coral: #fb923c;
+  --color-berry: #fb7185;
+  --shadow-soft: 0 18px 55px rgb(0 0 0 / 0.42);
+  --shadow-inset: inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* Standard scrollbar — Firefox and Chrome 121+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+::selection {
+  background: var(--color-mint);
+  color: #17201c;
+}
