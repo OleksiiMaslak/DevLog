@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import { Prisma } from "@prisma/client";
 import { handleApiError } from "@/lib/api";
@@ -41,7 +41,9 @@ describe("handleApiError", () => {
   });
 
   it("returns 500 for unknown errors", async () => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
     const result = handleApiError(new Error("unexpected db failure"));
+    spy.mockRestore();
 
     expect(result.status).toBe(500);
     await expect(result.json()).resolves.toEqual({ error: "Internal server error" });

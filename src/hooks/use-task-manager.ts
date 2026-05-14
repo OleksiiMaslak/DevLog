@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { TaskDTO } from "@/lib/tasks";
-import type { PublicPriority } from "@/lib/schemas";
+import type { PublicStatus } from "@/lib/schemas";
 import { apiErrorMessage, emptyForm, type ApiErrorResponse } from "@/lib/api-utils";
 
 export function useTaskManager(initialTasks: TaskDTO[]) {
@@ -66,12 +66,12 @@ export function useTaskManager(initialTasks: TaskDTO[]) {
 
   async function createSubtask(
     parentId: string,
-    data: { title: string; description: string; priority: PublicPriority },
+    data: { title: string; description: string; status: PublicStatus },
   ) {
     const response = await fetch("/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, parentId, status: "todo" }),
+      body: JSON.stringify({ ...data, parentId }),
     });
     const result = (await response.json()) as { task: TaskDTO } & ApiErrorResponse;
     if (!response.ok) throw new Error(apiErrorMessage(result, "Could not create subtask"));

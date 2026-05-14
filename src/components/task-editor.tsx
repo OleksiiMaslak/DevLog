@@ -21,17 +21,17 @@ export function TaskEditor({
   onSave: (patch: Partial<TaskDTO>) => void;
   onSubtaskSave: (subtaskId: string, patch: Partial<TaskDTO>) => void;
   onSubtaskDelete: (subtaskId: string) => void;
-  onSubtaskCreate: (data: { title: string; description: string; priority: PublicPriority }) => void;
+  onSubtaskCreate: (data: { title: string; description: string; status: PublicStatus }) => void;
   onDelete: () => void;
 }) {
   const [draft, setDraft] = useState(task);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmDeleteSubtaskId, setConfirmDeleteSubtaskId] = useState<string | null>(null);
   const [addingSubtask, setAddingSubtask] = useState(false);
-  const [subtaskDraft, setSubtaskDraft] = useState<{ title: string; description: string; priority: PublicPriority }>({
+  const [subtaskDraft, setSubtaskDraft] = useState<{ title: string; description: string; status: PublicStatus }>({
     title: "",
     description: "",
-    priority: "medium",
+    status: "todo",
   });
   const subtaskTitleRef = useRef<HTMLInputElement>(null);
 
@@ -264,17 +264,17 @@ export function TaskEditor({
             <div className="flex items-center gap-2">
               <select
                 className="rounded-md border border-line bg-field px-2 py-1 text-xs font-semibold text-ink outline-none transition focus:border-teal"
-                value={subtaskDraft.priority}
-                onChange={(e) => setSubtaskDraft((prev) => ({ ...prev, priority: e.target.value as PublicPriority }))}
+                value={subtaskDraft.status}
+                onChange={(e) => setSubtaskDraft((prev) => ({ ...prev, status: e.target.value as PublicStatus }))}
               >
-                {priorityOptions.map((p) => <option key={p}>{p}</option>)}
+                {statusOptions.filter((s) => s !== "all").map((s) => <option key={s}>{s}</option>)}
               </select>
               <button
                 className="flex items-center gap-1.5 rounded-md bg-teal px-3 py-1 text-xs font-semibold text-white transition hover:brightness-110 disabled:opacity-50"
                 disabled={disabled || subtaskDraft.title.trim().length < 2 || subtaskDraft.description.trim().length < 4}
                 onClick={() => {
-                  onSubtaskCreate({ title: subtaskDraft.title.trim(), description: subtaskDraft.description.trim(), priority: subtaskDraft.priority });
-                  setSubtaskDraft({ title: "", description: "", priority: "medium" });
+                  onSubtaskCreate({ title: subtaskDraft.title.trim(), description: subtaskDraft.description.trim(), status: subtaskDraft.status });
+                  setSubtaskDraft({ title: "", description: "", status: "todo" });
                   setAddingSubtask(false);
                 }}
               >
@@ -284,7 +284,7 @@ export function TaskEditor({
               <button
                 className="rounded-md px-3 py-1 text-xs font-semibold text-muted ring-1 ring-line transition hover:text-ink hover:ring-teal"
                 onClick={() => {
-                  setSubtaskDraft({ title: "", description: "", priority: "medium" });
+                  setSubtaskDraft({ title: "", description: "", status: "todo" });
                   setAddingSubtask(false);
                 }}
               >
