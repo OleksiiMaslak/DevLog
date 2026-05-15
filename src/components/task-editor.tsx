@@ -157,7 +157,8 @@ export function TaskEditor({
           </h3>
           {!addingSubtask && (
             <button
-              className="flex items-center gap-1 rounded-md border border-line px-2 py-1 text-xs font-semibold text-muted transition hover:border-teal hover:text-teal"
+              className="flex items-center gap-1 rounded-md border border-line px-2 py-1 text-xs font-semibold text-muted transition hover:border-teal hover:text-teal disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={disabled}
               onClick={() => setAddingSubtask(true)}
             >
               <Plus size={12} />

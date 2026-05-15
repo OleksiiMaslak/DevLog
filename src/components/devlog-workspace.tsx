@@ -129,7 +129,7 @@ export function DevLogWorkspace({ initialTasks }: { initialTasks: TaskDTO[] }) {
             <TaskEditor
               key={selectedTask.id}
               task={selectedTask}
-              disabled={isPending}
+              disabled={isPending || agentPending}
               onSave={(patch) => run(() => updateSelected(patch), "Changes saved")}
               onSubtaskSave={(subtaskId, patch) => run(() => updateTask(subtaskId, patch), "Subtask saved")}
               onSubtaskDelete={(subtaskId) => run(() => deleteTask(subtaskId), "Subtask deleted")}
